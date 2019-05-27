@@ -4,11 +4,8 @@ package swordForOffer;
  * @author yajie
  *
  */
-public class Add65 {
+public class Add {
 	/*
-
-
-
 首先看十进制是如何做的： 5+7=12，三步走
 第一步：相加各位的值，不算进位，得到2。
 第二步：计算进位值，得到10. 如果这一步的进位值为0，那么第一步得到的值就是最终结果。
