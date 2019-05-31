@@ -1,6 +1,7 @@
 package swordForOffer;
 /**
- * 写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号。
+ * 题目：不用加减乘除做加法
+ * 描述：写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号。
  * @author yajie
  *
  */
@@ -18,7 +19,7 @@ public class Add {
 第三步：将前两步相加，即重复上述两步， 各位相加 010^1010=1000，进位值为100=(010&1010)<<1。
      继续重复上述两步：1000^100 = 1100，进位值为0，跳出循环，1100为最终结果。
 	 */
-    public static int Add(int num1,int num2) {
+    public static int add(int num1,int num2) {
         while(num2 != 0) {
         	int temp = num1 ^ num2;// 第一步
         	num2 = (num1 & num2) << 1;// 第二步
@@ -27,6 +28,6 @@ public class Add {
         return num1;
     }
     public static void main(String[] args) {
-		System.out.println(Add(3, 2));
+		System.out.println(add(3, 2));
 	}
 }
