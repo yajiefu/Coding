@@ -1,6 +1,5 @@
 package swordForOffer;
 
-import java.util.Scanner;
 
 /*
  * 题目：二进制中1的个数
