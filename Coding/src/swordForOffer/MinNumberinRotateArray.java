@@ -18,13 +18,8 @@ package swordForOffer;
  *      注意：如果arr[low]==arr[mid]==arr[high]只能顺序查找
 
  */
-public class minNumberinRotateArray {
+public class MinNumberinRotateArray {
 
-	public static void main(String[] args) {
-		int[] array = {1,1,1,1,0,1};
-		System.out.println(minNumberInRotateArray(array));
-	}
-	
 	public static int minNumberInRotateArray(int [] array) {
 		int length = array.length;
 		if (length <= 0) {
@@ -61,5 +56,10 @@ public class minNumberinRotateArray {
 		}
 		return array[mid];
 		
+	}
+	
+	public static void main(String[] args) {
+		int[] array = {1,1,1,1,0,1};
+		System.out.println(minNumberInRotateArray(array));
 	}
 }
