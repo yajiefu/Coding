@@ -14,7 +14,7 @@ import basic.TreeNode;
  */
 public class TreeDepth { 
 	// 方法1：递归
-	public static int treeDepth1(TreeNode root) {
+	public static int treeDepth(TreeNode root) {
 		if (root == null) {
 			return 0;
 		}
@@ -24,7 +24,7 @@ public class TreeDepth {
         
     }
 	// 方法2：层次遍历
-	public static int treeDepth(TreeNode root) {
+	public static int treeDepth1(TreeNode root) {
 		if (root == null) {
 			return 0;
 		}
