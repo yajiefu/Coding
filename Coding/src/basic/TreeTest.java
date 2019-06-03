@@ -18,114 +18,196 @@ import basic.TreeNode;
 }
  */
 public class TreeTest {
-	
+
 	// 前序遍历-递归
-	public static void preOrderTraverse1(TreeNode root) {
-		if(root != null) {
+	public static void preOrderRecur(TreeNode root) {
+		if (root != null) {
 			System.out.print(root.val + " ");
-			preOrderTraverse1(root.left);
-			preOrderTraverse1(root.right);
+			preOrderRecur(root.left);
+			preOrderRecur(root.right);
 		}
 	}
-	// 前序遍历-非递归
-		public static void preOrderTraverse2(TreeNode root) {
-			Stack<TreeNode> stack = new Stack<>();
-			TreeNode pNode = root;
-			while(pNode != null || !stack.isEmpty()) {
-				if (pNode != null) {
-					System.out.print(pNode.val + " ");// 访问根节点
-					stack.push(pNode); // 根节点入栈
-					pNode = pNode.left; // 遍历左子树
-				}
-				else { 
-					//pNode == null && !stack.isEmpty()
-					TreeNode qNode = stack.pop(); // 出栈
-					pNode = qNode.right; // 遍历右子树
-				}
-				
+
+	// 前序遍历-非递归1
+	/*
+	 *1.初始化一个空栈stack，申请一个节点空间pNode指向根节点（当前节点）
+	 *2.申请一个节点空间qNode，用来存放栈顶弹出的元素。
+	 *3.当p非空或者stack非空时，循环执行下面的操作
+	 *   如果p非空，访问该节点，并将节点p入栈，节点p再指向该节点的左孩子
+	 *   如果p为空，则弹出栈顶元素，将p指向该栈顶元素的右孩子。
+	 */
+	public static void preOrderUnRecur1(TreeNode root) {
+		Stack<TreeNode> stack = new Stack<>();
+		TreeNode pNode = root;
+		while (pNode != null || !stack.isEmpty()) {
+			if (pNode != null) {
+				System.out.print(pNode.val + " ");// 访问根节点
+				stack.push(pNode); // 根节点入栈
+				pNode = pNode.left; // 遍历左子树
+			} else {
+				// pNode == null && !stack.isEmpty()
+				TreeNode qNode = stack.pop(); // 出栈
+				pNode = qNode.right; // 遍历右子树
+			}
+
+		}
+	}
+
+	// 前序遍历-非递归2：比非递归1更好理解
+	/*
+	 * 1.初始化一个空栈stack，然后将头节点head压入栈中
+	 * 2.从stack中弹出栈顶元素，记为cur,然后打印cur节点的值，再将cur的右孩子（不为空的话）压入栈中，最后将cur的左孩子压入栈中。
+	 * 3.不断重复步骤2，直到stack为空，全部过程结束
+	 */
+	public static void preOrderUnRecur2(TreeNode root) {
+		if (root == null) {
+			return;
+		}
+		Stack<TreeNode> stack = new Stack<>();
+		stack.push(root);
+		while (!stack.isEmpty()) {
+			TreeNode cur = stack.pop();
+			System.out.print(cur.val + " ");
+			// 注意：这里是将 右节点先入栈
+			if (cur.right != null) {
+				stack.push(cur.right);
+			}
+			if (cur.left != null) {
+				stack.push(cur.left);
 			}
 		}
-	
+	}
+
 	// 中序遍历-递归
-	public static void inOrderTraverse1(TreeNode root) {
+	
+	public static void inOrderRecur(TreeNode root) {
 		if (root != null) {
-			inOrderTraverse1(root.left);
+			inOrderRecur(root.left);
 			System.out.print(root.val + " ");
-			inOrderTraverse1(root.right);
+			inOrderRecur(root.right);
 		}
 	}
 
 	// 中序遍历-非递归
-	public static void inOrderTraverse2(TreeNode root) {
-		Stack<TreeNode> stack = new Stack<>();
-		TreeNode pNode = root;
-		while(pNode != null || !stack.isEmpty()) {
-			if (pNode != null) {
-//				System.out.print(pNode.val + " ");// 访问根节点
-				stack.push(pNode); // 根节点入栈
-				pNode = pNode.left; // 遍历左子树
-			}
-			else { 
-				//pNode == null && !stack.isEmpty()
-				TreeNode qNode = stack.pop(); // 出栈
-				System.out.print(qNode.val + " ");
-				pNode = qNode.right; // 遍历右子树
-			}
-			
+	/*
+	 * 1.申请一个新的栈stack，初始时，令变量cur=root
+	 * 2.现将cur入栈，对于以cur为根节点的整棵子树来说，依次把左边界压入栈中，即不停的令cur = cur.left,然后重复步骤2
+	 * 3.不断重复步骤2直到发现cur为空，此时从stack中弹出一个节点，记为node，打印node的值，并且让cur = node.right,然后重复步骤2
+	 */
+	public static void inOrderUnRecur(TreeNode root) {
+		if(root == null) {
+			return;
 		}
+		Stack<TreeNode> stack = new Stack<>();
+		TreeNode cur = root;
+		while(cur != null || !stack.isEmpty()) {
+			if (cur != null) {
+				stack.push(cur);
+				cur = cur.left;
+			}else {
+				// 当cur为空时，即左边界走到底了
+				TreeNode node = stack.pop();
+				System.out.print(node.val + " ");
+				cur = node.right;
+			}
+		}
+		
 	}
-	
+
 	// 后序遍历-递归
-	public static void postOrderTraverse1(TreeNode root) {
+	public static void postOrderRecur(TreeNode root) {
 		if (root != null) {
-			postOrderTraverse1(root.left);
-			postOrderTraverse1(root.right);
+			postOrderRecur(root.left);
+			postOrderRecur(root.right);
 			System.out.print(root.val + " ");
 		}
 	}
-	// 后序遍历-非递归
-	public static void postOrderTraverse2(TreeNode root) {
-		Stack<TreeNode> stack = new Stack<>();
-		// 当前节点
-		TreeNode pNode = root;
-		stack.push(pNode);
-		// 存放栈顶弹出的元素
-		TreeNode qNode = null;
-		// 上一个访问的节点
-		TreeNode preNode = null; 
-		while(!stack.isEmpty()) {
-			//栈顶元素置为当前元素，但是不移除
-			pNode = stack.peek();
-			if ((pNode.left == null && pNode.right == null) || 
-					(preNode != null && (pNode.left == preNode || pNode.right == preNode))) {
-				// 如果当前节点没有左右孩子  或者 有左孩子或右孩子，但是已经被访问输出了：
-				// 则访问该节点，并出栈，将其置为上一个访问的节点。
-				System.out.print(pNode.val + " ");
-				qNode = stack.pop();
-				preNode = pNode;
+
+	
+	/*
+	 * 方法1：用两个栈实现后序遍历
+	 * 1.申请一个栈stack1，然后将头节点root入栈stack1
+	 * 2.从stack1中弹出来的节点记为cur,然后依次将cur的左孩子和右孩子入栈stack1
+	 * 3.在整个过程中，每一次从stack1中弹出来的节点都放进stack2中
+	 * 4.不断重复步骤2和3，直到stack1中为空，过程停止
+	 * 5.从stack2总依次弹出节点，打印的顺序就是后序遍历的顺序
+	 */
+	// 后序遍历-非递归1
+	public static void postOrderUnRecur1(TreeNode root) {
+		if (root == null) {
+			return;
+		}
+		Stack<TreeNode> stack1 = new Stack<>();
+		Stack<TreeNode> stack2 = new Stack<>();
+		stack1.push(root);
+		while(!stack1.isEmpty()) {
+			TreeNode cur = stack1.pop();
+			stack2.push(cur);
+			if (cur.left != null) {
+				stack1.push(cur.left);
 			}
-			else {
-				if (pNode.right != null) {
-					stack.push(pNode.right);
-				}
-				if (pNode.left != null) {
-					stack.push(pNode.left);
-				}
+			if (cur.right != null) {
+				stack1.push(cur.right);
 			}
+		}
+		while(!stack2.isEmpty()) {
+			System.out.print(stack2.pop().val + " ");
 		}
 	}
 	
+	/*
+	 * 方法2：只用一个栈
+	 * 1.初始化一个空栈stack，将头节点root入栈，同时设置两个申请变量cur和pre，
+	 *   在这个流程中cur代表stack的栈顶节点，pre代表最近一次弹出并打印的节点。初始时，均为null。
+	 * 2.当stack非空时，循环执行下面的操作
+	 *     将栈顶节点置为当前节点cur,但是不从stack中弹出。
+	 *     如果当前节点没有左右孩子  或者 有左孩子或右孩子，但是已经被访问输出了：则访问该节点，并出栈，将其置为上一个访问的节点。
+	 *     如果不满足上面的条件的话，依次将右孩子和左孩子入栈。
+	 */
+	// 后序遍历-非递归2
+	public static void postOrderUnRecur2(TreeNode root) {
+		if (root == null) {
+			return ;
+		}
+		Stack<TreeNode> stack = new Stack<>();
+		stack.push(root);
+		// 存放栈顶元素
+		TreeNode cur = null;
+		TreeNode pre = null;
+		while(!stack.isEmpty()) {
+			cur = stack.peek();
+			//如果当前节点没有左右孩子  或者 有左孩子或右孩子，但是已经被访问输出了：则访问该节点，并出栈，将其置为上一个访问的节点。
+			if ((cur.left == null && cur.right == null) ||
+					(pre != null && (cur.left == pre || cur.right == pre))) {
+				System.out.print(stack.pop().val + " ");
+				pre = cur;
+			}else {
+				// 依次将cur的右孩子和左孩子入栈
+				if (cur.right != null) {
+					stack.push(cur.right);
+				}
+				if (cur.left != null) {
+					stack.push(cur.left);
+				}
+			}
+			
+		}
+		
+				
+		
+	
+	}
+
 	// 层次遍历
 	public static void levelOrderTraverse1(TreeNode root) {
 		if (root == null) {
 			return;
 		}
 		// 用LinkedList来实现一个双向队列，这里我们看成是一个单向的。
-		
-		
+
 		LinkedList<TreeNode> queue = new LinkedList<>();
 		queue.addLast(root);
-		while(!queue.isEmpty()) {
+		while (!queue.isEmpty()) {
 			// 出队
 			TreeNode pNode = queue.removeFirst();
 			System.out.print(pNode.val + " ");
@@ -138,66 +220,66 @@ public class TreeTest {
 				queue.addLast(pNode.right);
 			}
 		}
-		
+
 	}
+
 	// 层次遍历:分行打印
-		public static void levelOrderTraverse2(TreeNode root) {
-			if (root == null) {
-				return;
-			}
-			// 用LinkenList来实现一个双向队列，这里我们看成是一个单向的。
-			// 分行打印，设置两个变量分别保存，该行剩余节点数和下一行节点数
-			int nextLevel = 0;
-			int toBePrint = 1;
-			
-			LinkedList<TreeNode> queue = new LinkedList<>();
-			queue.addLast(root);
-			while(!queue.isEmpty()) {
-				// 出队
-				TreeNode pNode = queue.removeFirst();
-				System.out.print(pNode.val + " ");
-				toBePrint --;
-				if (pNode.left != null) {
-					// 入队
-					queue.addLast(pNode.left);
-					nextLevel ++;
-				}
-				if (pNode.right != null) {
-					// 入队
-					queue.addLast(pNode.right);
-					nextLevel ++;
-				}
-				if (toBePrint == 0) {
-					System.out.println();
-					toBePrint = nextLevel;
-					nextLevel = 0;
-				}
-			}
-			
+	public static void levelOrderTraverse2(TreeNode root) {
+		if (root == null) {
+			return;
 		}
-		
-		// 层次遍历:之字形打印
+		// 用LinkenList来实现一个双向队列，这里我们看成是一个单向的。
+		// 分行打印，设置两个变量分别保存，该行剩余节点数和下一行节点数
+		int nextLevel = 0;
+		int toBePrint = 1;
+
+		LinkedList<TreeNode> queue = new LinkedList<>();
+		queue.addLast(root);
+		while (!queue.isEmpty()) {
+			// 出队
+			TreeNode pNode = queue.removeFirst();
+			System.out.print(pNode.val + " ");
+			toBePrint--;
+			if (pNode.left != null) {
+				// 入队
+				queue.addLast(pNode.left);
+				nextLevel++;
+			}
+			if (pNode.right != null) {
+				// 入队
+				queue.addLast(pNode.right);
+				nextLevel++;
+			}
+			if (toBePrint == 0) {
+				System.out.println();
+				toBePrint = nextLevel;
+				nextLevel = 0;
+			}
+		}
+
+	}
+
+	// 层次遍历:之字形打印
 	public static ArrayList<ArrayList<Integer>> levelOrderTraverse3(TreeNode pRoot) {
 		// 需要两个栈，A,B
 		// 奇数层数字出栈后，先左后右保存在A
 		// 偶数层数字出栈后，先右后左保存在B
-		ArrayList<ArrayList<Integer>> result = new ArrayList<>(); 
+		ArrayList<ArrayList<Integer>> result = new ArrayList<>();
 		if (pRoot == null) {
 			return result;
 		}
 		Stack<TreeNode> stackA = new Stack<>();
 		Stack<TreeNode> stackB = new Stack<>();
-		
-		
+
 		stackB.push(pRoot);
-		while(!stackA.isEmpty() || !stackB.isEmpty()) {
+		while (!stackA.isEmpty() || !stackB.isEmpty()) {
 			ArrayList<Integer> listB = new ArrayList<>();
-			while(!stackB.isEmpty()) {
+			while (!stackB.isEmpty()) {
 				TreeNode pNode = stackB.pop();
-				
+
 				listB.add(pNode.val);
 //				System.out.print(pNode.val + " ");
-				
+
 				if (pNode.left != null) {
 					stackA.push(pNode.left);
 				}
@@ -205,10 +287,11 @@ public class TreeTest {
 					stackA.push(pNode.right);
 				}
 			}
-			if (!listB.isEmpty()) result.add(listB);
-			
+			if (!listB.isEmpty())
+				result.add(listB);
+
 			ArrayList<Integer> listA = new ArrayList<>();
-			while(!stackA.isEmpty()) {
+			while (!stackA.isEmpty()) {
 				TreeNode pNode = stackA.pop();
 				listA.add(pNode.val);
 				if (pNode.right != null) {
@@ -217,19 +300,17 @@ public class TreeTest {
 				if (pNode.left != null) {
 					stackB.push(pNode.left);
 				}
-				
+
 			}
 			if (!listA.isEmpty()) {
 				result.add(listA);
 			}
 		}
-		
-			return result;
-			
-		}
-		
 
-	
+		return result;
+
+	}
+
 	public static void main(String[] args) {
 		TreeNode aNode = new TreeNode(1);
 		TreeNode bNode = new TreeNode(2);
@@ -239,7 +320,7 @@ public class TreeTest {
 		TreeNode fNode = new TreeNode(6);
 		TreeNode gNode = new TreeNode(7);
 		TreeNode hNode = new TreeNode(8);
-		
+
 		aNode.left = bNode;
 		aNode.right = cNode;
 		bNode.left = dNode;
@@ -248,22 +329,28 @@ public class TreeTest {
 		eNode.left = gNode;
 		eNode.right = hNode;
 		System.out.print("前序遍历-递归 ：   ");
-		preOrderTraverse1(aNode);
+		preOrderRecur(aNode);
 		System.out.println();
-		System.out.print("前序遍历-非递归：");
-		preOrderTraverse2(aNode);
+		System.out.print("前序遍历-非递归1：");
+		preOrderUnRecur1(aNode);
+		System.out.println();
+		System.out.print("前序遍历-非递归2：");
+		preOrderUnRecur2(aNode);
 		System.out.println();
 		System.out.print("中序遍历-递归 ：  ");
-		inOrderTraverse1(aNode);
+		inOrderRecur(aNode);
 		System.out.println();
 		System.out.print("中序遍历-非递归：");
-		inOrderTraverse2(aNode);
+		inOrderUnRecur(aNode);
 		System.out.println();
 		System.out.print("后序遍历-递归 ：  ");
-		postOrderTraverse1(aNode);
+		postOrderRecur(aNode);
 		System.out.println();
-		System.out.print("后序遍历-非递归：");
-		postOrderTraverse2(aNode);
+		System.out.print("后序遍历-非递归1：");
+		postOrderUnRecur1(aNode);
+		System.out.println();
+		System.out.print("后序遍历-非递归2：");
+		postOrderUnRecur2(aNode);
 		System.out.println();
 		System.out.print("层次遍历：");
 		levelOrderTraverse1(aNode);
@@ -279,6 +366,6 @@ public class TreeTest {
 			}
 			System.out.println();
 		}
-		
+
 	}
 }
