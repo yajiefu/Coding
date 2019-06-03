@@ -8,11 +8,14 @@ import basic.TreeNode;
  */
 public class IsSymmetrical {
 
-	public static boolean isSymmetrical(TreeNode pRoot)
-    {
-		return isSymmetrical(pRoot,pRoot);
-		        
-    }
+	public static boolean isSymmetrical(TreeNode pRoot) {
+		if (pRoot == null) {
+			return true;
+		}
+		return isSymmetrical(pRoot.left, pRoot.right);
+
+	}
+
 	public static boolean isSymmetrical(TreeNode root1, TreeNode root2) {
 		if (root1 == null && root2 == null) {
 			return true;
@@ -23,27 +26,25 @@ public class IsSymmetrical {
 		if (root1.val != root2.val) {
 			return false;
 		}
-	
-		return isSymmetrical(root1.left, root2.right);
+		return isSymmetrical(root1.left, root2.right) && isSymmetrical(root1.right, root2.left);
 	}
 
 	public static void main(String[] args) {
-		 TreeNode aNode = new TreeNode(8);
-			TreeNode bNode = new TreeNode(6);
-			TreeNode cNode = new TreeNode(6);
-			TreeNode dNode = new TreeNode(5);
-			TreeNode eNode = new TreeNode(7);
-			TreeNode fNode = new TreeNode(7);
-			TreeNode gNode = new TreeNode(5);
+		TreeNode aNode = new TreeNode(2);
+		TreeNode bNode = new TreeNode(3);
+		TreeNode cNode = new TreeNode(3);
+		TreeNode dNode = new TreeNode(4);
+		TreeNode eNode = new TreeNode(5);
+		TreeNode fNode = new TreeNode(4);
 		
-			
-			aNode.left = bNode;
-			aNode.right = cNode;
-			bNode.left = dNode;
-			bNode.right = eNode;
-			cNode.left = fNode;
-			cNode.right = gNode;
-			
-			System.out.println(isSymmetrical(aNode));
+		aNode.left = bNode;
+		aNode.right = cNode;
+		bNode.left = dNode;
+		bNode.right = eNode;
+		cNode.right = fNode;
+
+	
+
+		System.out.println(isSymmetrical(aNode));
 	}
 }
