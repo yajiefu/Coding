@@ -22,7 +22,7 @@ public class MinDepth {
 
 		return (left == 0 || right == 0) ? left + right + 1 : Math.min(left, right) + 1;
 	}
-	
+
 	// 方法2：层次遍历
 	public int minDepthBFS(TreeNode root) {
 		if (root == null) {
