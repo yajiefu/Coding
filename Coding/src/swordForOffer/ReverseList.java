@@ -58,6 +58,22 @@ public class ReverseList {
 		return newList;
 		
 	}
+	
+	// 简化第2种方法，该代码在LeetCode上会超时
+	public static ListNode reverseList2(ListNode head) {
+
+        // 前指针
+        ListNode preNode = null;
+        // 当前指针
+        ListNode curNode = head;
+        while(curNode != null){
+            ListNode nextNode = curNode.next;
+            curNode.next = preNode;
+            preNode = curNode;
+            curNode = nextNode;
+        }
+        return preNode;
+	}
 	public static void main(String[] args) {
 		ListNode aListNode = new ListNode(0);
 		ListNode bListNode = new ListNode(1);
@@ -67,7 +83,7 @@ public class ReverseList {
 		ListNode fListNode = new ListNode(5);
 		aListNode.next = bListNode;
 		bListNode.next = cListNode;
-		cListNode.next =dListNode;
+		cListNode.next = dListNode;
 		dListNode.next = eListNode;
 		eListNode.next = fListNode;
 		System.out.println(reverseList(aListNode).val);
