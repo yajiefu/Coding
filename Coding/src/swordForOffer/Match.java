@@ -17,7 +17,7 @@ package swordForOffer;
  *       3)	相当于把*前面的字符出现>1次:match(str,i+1,pattenr,j)
  * 2.若当前字符存在下一个字符，看下一个字符不是 '*'
  *   (1)当前匹配或者当前为‘.’  match(str,i+1,pattern,j+1)
- *   (2)当前不匹配，flase
+ *   (2)当前不匹配，false
  *   
  */
 
