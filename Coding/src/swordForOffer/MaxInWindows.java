@@ -25,7 +25,7 @@ import java.util.List;
  *    原则3：队列的第一个元素是滑动窗口中的最大值
  * 
  */
-public class MaxInWindows59 {
+public class MaxInWindows {
 
 	public static ArrayList<Integer> maxInWindows(int[] num, int size) {
 		ArrayList<Integer> result = new ArrayList<>();
