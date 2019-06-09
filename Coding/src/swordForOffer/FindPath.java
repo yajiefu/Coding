@@ -17,6 +17,9 @@ public class FindPath {
 	public static ArrayList<ArrayList<Integer>> findPath(TreeNode root, int target) {
 		ArrayList<Integer> list = new ArrayList<>();
 		ArrayList<ArrayList<Integer>> listAll = new ArrayList<>();
+		if (root == null) {
+			return listAll;
+		}
 		findPathCore(root, target, list, listAll);
 		// 如果要按照降序排序 则o1 小于o2，返回1（正数），相等返回0，01大于02返回-1（负数）
 		Collections.sort(listAll, new Comparator<ArrayList<Integer>>() {
@@ -33,20 +36,22 @@ public class FindPath {
 
 	public static void findPathCore(TreeNode root, int target, ArrayList<Integer> list,
 			ArrayList<ArrayList<Integer>> listAll) {
-		if (root == null) {
-			return;
-		}
+		
 		list.add(root.val);
 		target = target - root.val;
 
 		// root是叶节点且此时target为0,说明该路径是正确的
 		if (target == 0 && root.left == null && root.right == null) {
 			listAll.add(new ArrayList<>(list));
-		} else {
-			// 如果不是叶节点，再继续遍历它的子节点
+		} 
+		// 如果不是叶节点，再继续遍历它的子节点
+		if (root.left != null) {
 			findPathCore(root.left, target, list, listAll);
+		}
+		if (root.right != null) {
 			findPathCore(root.right, target, list, listAll);
 		}
+		
 
 		// 无论当前路径是否加出了target，必须去掉最后一个，然后返回父节点，去查找另一条路径
 		list.remove(list.size() - 1);
