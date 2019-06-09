@@ -1,49 +1,48 @@
 package leetCode;
 
-import java.util.Arrays;
 
-/**
- * ÌâÄ¿£ººÏ²¢Êı×é
- * ÃèÊö£ºÁ½¸öÉıĞòÕûÊıÊı×éAºÍB£¬AµÄ³¤¶ÈÎªm£¬BµÄ³¤¶ÈÎªn¡£
- *     ½«Êı×éBºÏ²¢µ½Êı×éAÖĞ£¬µÃµ½Î¨Ò»µÄÉıĞòÅÅĞòÊı×é£¨¼ÙÉèAÊı×éµÄ³¤¶È×ã¹»³¤£©£¬
- *     ²¢·ÖÎöËã·¨µÄÊ±¼ä¸´ÔÓ¶ÈºÍ¿Õ¼ä¸´ÔÓ¶È¡£
- *     
- * @author yajie
- *  ÕâµÀÌâµÄ¾«ËèÔÚÓÚ£ºÔÚºÏ²¢Á½¸öÊı×é£¨°üÀ¨×Ö·û´®Ê±£©£¬Èç¹û´ÓÇ°Íùºó¸´ÖÆÃ¿¸öÊı×Ö£¨»ò×Ö·û£©ÔòĞèÒªÖØ¸´ÒÆ¶¯Êı×Ö£¨»ñ×Ö·û£©¶à´Î£¬
- *  ÄÇÃ´ÎÒÃÇ¿ÉÒÔ¿¼ÂÇ´ÓºóÍùÇ°¸´ÖÆ£¬ÕâÑù¿ÉÒÔ¼õÉÙÒÆ¶¯µÄ´ÎÊı£¬´Ó¶øÌá¸ßĞ§ÂÊ¡£
+/*
+ * é¢˜ç›®ï¼š88.åˆå¹¶ä¸¤ä¸ªæœ‰åºæ•°ç»„
+ * æè¿°ï¼šç»™å®šä¸¤ä¸ªæœ‰åºæ•´æ•°æ•°ç»„Â nums1 å’Œ nums2ï¼Œå°† nums2 åˆå¹¶åˆ°Â nums1Â ä¸­ï¼Œä½¿å¾—Â num1 æˆä¸ºä¸€ä¸ªæœ‰åºæ•°ç»„ã€‚
+ * è¯´æ˜:
+ * åˆå§‹åŒ–Â nums1 å’Œ nums2 çš„å…ƒç´ æ•°é‡åˆ†åˆ«ä¸ºÂ m å’Œ nã€‚
+ * ä½ å¯ä»¥å‡è®¾Â nums1Â æœ‰è¶³å¤Ÿçš„ç©ºé—´ï¼ˆç©ºé—´å¤§å°å¤§äºæˆ–ç­‰äºÂ m + nï¼‰æ¥ä¿å­˜ nums2 ä¸­çš„å…ƒç´ ã€‚
+
+ *  è¿™é“é¢˜çš„ç²¾é«“åœ¨äºï¼šåœ¨åˆå¹¶ä¸¤ä¸ªæ•°ç»„ï¼ˆåŒ…æ‹¬å­—ç¬¦ä¸²æ—¶ï¼‰ï¼Œå¦‚æœä»å‰å¾€åå¤åˆ¶æ¯ä¸ªæ•°å­—ï¼ˆæˆ–å­—ç¬¦ï¼‰åˆ™éœ€è¦é‡å¤ç§»åŠ¨æ•°å­—ï¼ˆè·å­—ç¬¦ï¼‰å¤šæ¬¡ï¼Œ
+ *  é‚£ä¹ˆæˆ‘ä»¬å¯ä»¥è€ƒè™‘ä»åå¾€å‰å¤åˆ¶ï¼Œè¿™æ ·å¯ä»¥å‡å°‘ç§»åŠ¨çš„æ¬¡æ•°ï¼Œä»è€Œæé«˜æ•ˆç‡ã€‚
  */
 public class MergeArray {
 
-    public static void merge(int[] nums1, int m, int[] nums2, int n) {
-        if (nums2 == null || n <= 0) {
-			return ;
+	public static void merge(int[] nums1, int m, int[] nums2, int n) {
+		if (nums2 == null || n <= 0) {
+			return;
 		}
-        //Ö¸ÏòºÏ²¢ºóÊı×éµÄÖ¸Õë
-        int indexMerge = m + n - 1;
-       // Ö´ĞĞÊı×énum1µÄÖ¸Õë
-        int index1 = m - 1;
-        // Ö´ĞĞÊı×énum2µÄÖ¸Õë
-        int index2 = n - 1;
-        while(index1 >= 0 && index2 >= 0) {
-        	if (nums1[index1] <= nums2[index2]) {
+		// æŒ‡å‘åˆå¹¶åæ•°ç»„çš„æŒ‡é’ˆ
+		int indexMerge = m + n - 1;
+		// æ‰§è¡Œæ•°ç»„num1çš„æŒ‡é’ˆ
+		int index1 = m - 1;
+		// æ‰§è¡Œæ•°ç»„num2çš„æŒ‡é’ˆ
+		int index2 = n - 1;
+		while (index1 >= 0 && index2 >= 0) {
+			if (nums1[index1] <= nums2[index2]) {
 				nums1[indexMerge--] = nums2[index2--];
-			}else {
+			} else {
 				nums1[indexMerge--] = nums1[index1--];
 			}
-        }
-        while(index1 >= 0) {
-        	nums1[indexMerge--] = nums1[index1--];
-        }
-        while(index2 >= 0) {
-        	nums1[indexMerge--] = nums2[index2--];
-        }
-//        System.out.println(Arrays.toString(nums1));
-    } 
+		}
+		while (index1 >= 0) {
+			nums1[indexMerge--] = nums1[index1--];
+		}
+		while (index2 >= 0) {
+			nums1[indexMerge--] = nums2[index2--];
+		}
+	}
+
 	public static void main(String[] args) {
-		int[] nums1 = {1,5,7,9,0,0,0,0,0,0};
+		int[] nums1 = { 1, 5, 7, 9, 0, 0, 0, 0, 0, 0 };
 		int m = 4;
-		int[] nums2 = {2,3,4,6,8,10};
+		int[] nums2 = { 2, 3, 4, 6, 8, 10 };
 		int n = 6;
 		merge(nums1, m, nums2, n);
-	}  
+	}
 }
