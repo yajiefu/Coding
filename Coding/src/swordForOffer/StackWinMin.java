@@ -2,42 +2,34 @@ package swordForOffer;
 
 import java.util.Stack;
 /*
- * ÌâÄ¿£º°üº¬minº¯ÊıµÄÕ»
- * ÃèÊö£º¶¨ÒåÕ»µÄÊı¾İ½á¹¹£¬ÇëÔÚ¸ÃÀàĞÍÖĞÊµÏÖÒ»¸öÄÜ¹»µÃµ½Õ»ÖĞËùº¬×îĞ¡ÔªËØµÄminº¯Êı£¬
- *     ÔÚ¸ÃÕ»ÖĞ£¬push,pop,minµÄÊ±¼ä¸´ÔÓ¶ÈÓ¦ÎªO£¨1£©
+ * é¢˜ç›®ï¼šåŒ…å«minå‡½æ•°çš„æ ˆ
+ * æè¿°ï¼šå®šä¹‰æ ˆçš„æ•°æ®ç»“æ„ï¼Œè¯·åœ¨è¯¥ç±»å‹ä¸­å®ç°ä¸€ä¸ªèƒ½å¤Ÿå¾—åˆ°æ ˆä¸­æ‰€å«æœ€å°å…ƒç´ çš„minå‡½æ•°ï¼Œ
+ *     åœ¨è¯¥æ ˆä¸­ï¼Œpush,pop,minçš„æ—¶é—´å¤æ‚åº¦åº”ä¸ºOï¼ˆ1ï¼‰
  *     
  */
 public class StackWinMin {
-	// ÓÃÒ»¸ö¸¨ÖúÕ»À´´æ×îĞ¡ÔªËØ
 	private Stack<Integer> stack = new Stack<>();
-	// ¸¨ÖúÕ»
 	private Stack<Integer> minStack = new Stack<>();
 	
-	private int min = Integer.MAX_VALUE;
 	
-	// ÈëÕ»
-    public void push(int node) {
-    	 stack.push(node);
-    	 if (node < min) {
-			min = node;
-			minStack.push(min);
-		}else {
-			minStack.push(min);
+	public void push(int node) {
+		stack.push(node);
+		if (minStack.isEmpty() || minStack.peek() >= node) {
+			minStack.push(node);
+		} else {
+			minStack.push(minStack.peek());
 		}
-    }
+	}
      
-    // ³öÕ»
     public void pop() {
         stack.pop();
         minStack.pop();
     }
     
-    // Õ»¶¥ÔªËØ
     public int top() {
         return stack.peek();
     }
     
-    // ×îĞ¡ÔªËØ
     public int min() {
         return minStack.peek();
     }
