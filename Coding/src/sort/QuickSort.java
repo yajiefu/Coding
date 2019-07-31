@@ -8,7 +8,7 @@ package sort;
  *3.递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序；
  *
  *时间复杂度：平均，最好：T(n)=O(nlogn)  最坏：T(n)=O(n2)
- *空间复杂度：T(n)=O(nlogn)
+ *空间复杂度：S(n)=O(nlogn)
  *稳定性：不稳定
  */
 import java.util.Arrays;
