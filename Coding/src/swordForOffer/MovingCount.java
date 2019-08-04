@@ -8,47 +8,51 @@ package swordForOffer;
  */
 
 public class MovingCount {
-	public static int movingCount(int threshold, int rows, int cols) {
-		if (threshold < 0 || rows < 0 || cols < 0) {
-			return 0;
-		}
-		boolean[] flag = new boolean[rows * cols];
-		int count = movingCountCore(threshold, 0, 0, rows, cols, flag);
-		return count;
-
-	}
-
-	public static int movingCountCore(int threshold, int i, int j, int rows, int cols, boolean[] flag) {
-		int count = 0;
-		// 如果机器人能进入该坐标
-		if (check(threshold, i, j, rows, cols, flag)) {
-			flag[i * rows + j] = true;
-			count = 1 + movingCountCore(threshold, i + 1, j, rows, cols, flag)
-					+ movingCountCore(threshold, i - 1, j, rows, cols, flag)
-					+ movingCountCore(threshold, i, j + 1, rows, cols, flag)
-					+ movingCountCore(threshold, i, j - 1, rows, cols, flag);
-		}
-		return count;
-	}
-
-	// 判断机器人能否进入坐标(i,j)，能就返回true
-	public static boolean check(int threshold, int i, int j, int rows, int cols, boolean[] flag) {
-		if (i >= 0 && j >= 0 && i < rows && j < cols && getDigitSum(i) + getDigitSum(j) <= threshold
-				&& !flag[i * rows + j]) {
-			return true;
-		}
-		return false;
-	}
-
-	// 坐标数位之和
-	public static int getDigitSum(int num) {
-		int sum = 0;
-		while (num > 0) {
-			sum += num % 10;
-			num /= 10;
-		}
-		return sum;
-	}
+	public static int movingCount(int threshold, int rows, int cols)
+    {
+        if(threshold < 0 || rows < 0 || cols < 0) {
+            return 0;
+        }
+        //初始化为false，若走过，怎为true
+        boolean[] flag = new boolean[rows*cols];
+        int count = movingCountCore(threshold, 0, 0, rows, cols, flag);
+        return count;
+      
+    }
+     
+    public static int movingCountCore(int threshold, int i, int j, int rows,int cols, boolean[] flag) {
+        int count = 0;
+         
+        if(check(threshold, i, j, rows, cols, flag)) {
+            //机器人进入该格子
+            flag[i*cols+j] = true;
+            count = 1 + movingCountCore(threshold, i+1, j, rows, cols, flag)
+                      + movingCountCore(threshold, i-1, j, rows, cols, flag)
+                      + movingCountCore(threshold, i, j+1, rows, cols, flag)
+                      + movingCountCore(threshold, i, j-1, rows, cols, flag);
+        }
+        return count;
+    }
+     
+    //判断机器人能够进入坐标(i,j)，能就返回true
+    private static boolean check(int threshold, int i,int j, int  rows, int cols, boolean[] flag) {
+        if(i >= 0 && i < rows && j >= 0 && j < cols &&
+            getDigitSum(i) + getDigitSum(j) <= threshold
+            && !flag[i*cols+j]) {
+            return true;
+        }
+        return false;
+    }
+     
+    //坐标数位之和
+    private static int getDigitSum(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
+    }
 
 	public static void main(String[] args) {
 		System.out.println(movingCount(6, 12, 12));
