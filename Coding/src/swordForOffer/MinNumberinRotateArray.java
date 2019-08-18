@@ -16,6 +16,8 @@ package swordForOffer;
  *      当mid在前面的递增数组的时候，arr[mid]应该>= arr[low]，此时应该low移动到mid的位置
  *      
  *      注意：如果arr[low]==arr[mid]==arr[high]只能顺序查找
+ *      
+ *      
 
  */
 public class MinNumberinRotateArray {
@@ -59,7 +61,7 @@ public class MinNumberinRotateArray {
 	}
 	
 	public static void main(String[] args) {
-		int[] array = {1,1,1,1,0,1};
+		int[] array = {4,5,6,7,0,1,2};
 		System.out.println(minNumberInRotateArray(array));
 	}
 }
