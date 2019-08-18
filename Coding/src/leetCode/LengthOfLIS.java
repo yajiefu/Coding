@@ -42,12 +42,14 @@ public class LengthOfLIS {
 		dp[0] = 1;
 		int maxLen = 1;
 		for (int i = 1; i < len; i++) {
-			// 在0到i-1之间找到比nums[i]小的nums[j]，它所对应的最大dp[j]+1
+			// 在0到i-1之间找到比nums[i]小的nums[j]
+			int maxValue = 0;
 			for (int j = 0; j < i; j++) {
 				if (nums[j] < nums[i]) {
-					dp[i] = Math.max(dp[i], dp[j] + 1);
+					maxValue = Math.max(maxValue, dp[j]);
 				}
 			}
+			dp[i] = maxValue + 1;
 			maxLen = Math.max(dp[i], maxLen);
 		}
 		return maxLen;
@@ -83,7 +85,7 @@ public class LengthOfLIS {
 				int right = end;
 				while (left < right) {
 					int mid = (left + right) >>> 1;
-					if (nums[mid] < cur) {
+					if (tail[mid] < cur) {
 						left = mid + 1;
 					} else {
 						right = mid;
@@ -102,7 +104,7 @@ public class LengthOfLIS {
 	}
 
 	public static void main(String[] args) {
-		int[] nums = { 1, 3, 6, 7, 9, 4, 10, 5, 6 };
+		int[] nums = { 10,9,2,5,3,4 };
 		System.out.println(lengthOfLIS1(nums));
 		System.out.println(lengthOfLIS(nums));
 
