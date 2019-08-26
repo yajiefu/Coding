@@ -7,7 +7,7 @@ package swordForOffer;
  * 方法2：非递归：时间复杂度：O(n);空间复杂度：O(1)
  */
 public class JumpFloor {
-	public static int jumpFloor(int target) {
+	public static long jumpFloor(int target) {
 		if (target <= 0) {
 			return 0;
 		}
@@ -17,9 +17,9 @@ public class JumpFloor {
 		if (target == 2) {
 			return 2;
 		}
-		int num1 = 1;
-		int num2 = 2;
-		int result = 0;
+		long num1 = 1;
+		long num2 = 2;
+		long result = 0;
 		for(int i = 3; i <= target; i++) {
 			result = num1 + num2;
 			num1 = num2;
