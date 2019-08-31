@@ -134,6 +134,7 @@ public class NumIslands {
 	//方法3：并查集 
 	//主要有两个函数：
 	//find():确定元素属于哪一个子集，这个方法就是不断的向上查找找到它的根节点，可以用来确定他们是否是同一个子集
+	//union():合并。优化方法：按秩合并，即rank,总是将更小的树连接至更大的树上。单元素的树的秩定义为0，当两棵秩同为r的树联合时，它们的秩r+1
 	public static class UnionFind{
 		int count;// 连同区域的个数
 		int[] parent;
