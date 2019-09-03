@@ -29,8 +29,34 @@ public class QuickSort {
 		}
 	}
 
+	// 我常用这个方法
 	public static int partition(int[] arr, int low, int high) {
+		// 基准是首位第一个元素。先从右到左找到比基准小的数放在基准的位置，j的位置为空
+		// 再从左往右找到比基准大的数放在j的位置。
+		int pivot = arr[low];
+		int i = low;
+		int j = high;
+		while (i < j) {
+			while (i < j && arr[j] >= pivot) {
+				j--;
+			}
+			if (i < j) {// 这里要判断一下，否则当i和j相等的时候这里还要执行就错了。
+				arr[i++] = arr[j];
+			}
+			while (i < j && arr[i] <= pivot) {
+				i++;
+			}
+			if (i < j) {// 这里要判断一下，否则当i和j相等的时候这里还要执行就错了。
+				arr[j--] = arr[i];
+			}
+		}
+		// 此时i==j
+		arr[i] = pivot;
+		return i;
+	}
 
+	// 另一种写法
+	public static int partition1(int[] arr, int low, int high) {
 		// 设定基准值(pivot)
 		int pivot = low;
 		int index = pivot + 1;
@@ -50,47 +76,9 @@ public class QuickSort {
 		arr[j] = temp;
 	}
 
-	// 另一种写法
-	public static void quickSort1(int[] arr) {
-		if (arr == null || arr.length <= 1) {
-			return;
-		}
-		sort(arr, 0, arr.length - 1);
-	}
-
-	// 排序
-	public static void sort(int[] arr, int low, int high) {
-		if (low >= high) {
-			return;
-		}
-		int i = low;
-		int j = high;
-		int index = arr[i];
-		// 下面的步骤就是根据快排的流程走的
-		// 基准是首位第一个元素。先从右到左找到比基准小的数放在基准的位置，j的位置为空
-		// 再从左往右找到比基准大的数放在j的位置。
-		while (i < j) {
-			while (i < j && arr[j] > index) {
-				j--;
-			}
-			if (i < j) {
-				arr[i++] = arr[j];
-			}
-			while (i < j && arr[i] < index) {
-				i++;
-			}
-			if (i < j) {
-				arr[j--] = arr[i];
-			}
-		}
-		arr[i] = index;
-		sort(arr, low, i - 1);
-		sort(arr, i + 1, high);
-	}
-
 	public static void main(String[] args) {
 		int[] array = { 6, 8, 3, 2, 4, 0, 7 };
-		quickSort1(array);
+		quickSort(array);
 		System.out.println(Arrays.toString(array));
 	}
 }
