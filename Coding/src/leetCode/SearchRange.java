@@ -25,8 +25,12 @@ public class SearchRange {
 		if (nums == null || nums.length <= 0) {
 			return new int[] { -1, -1 };
 		}
-		int[] res = new int[2];
+		int[] res = { -1, -1 };
 		res[0] = leftBound(nums, target);
+		// 优化
+		if (res[0] == -1) {
+			return res;
+		}
 		res[1] = rightBound(nums, target);
 		return res;
 
@@ -70,7 +74,7 @@ public class SearchRange {
 
 	public static void main(String[] args) {
 		int[] nums = { 5, 7, 7, 8, 10 };
-		int target = 10;
+		int target = 6;
 		int[] res = searchRange(nums, target);
 		System.out.println(res[0] + " " + res[1]);
 
