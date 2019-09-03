@@ -97,6 +97,20 @@ public class IsPalindrome {
 		}
 		return revertNum == x || x == revertNum / 10;
 	}
+	
+	//方法5：直接对整个数字进行翻转
+	public static boolean isPalindrome5(int x) {
+		 if(x < 0 || (x % 10 == 0 && x != 0)){
+	            return false;
+	        }
+	        int revertNum = 0;
+	        int temp = x;
+	        while(temp > 0){
+	            revertNum = revertNum * 10 + temp % 10;
+	            temp = temp / 10;
+	        }
+	        return revertNum == x;
+	}
 
 	public static void main(String[] args) {
 		System.out.println(isPalindrome1(-44));
@@ -114,5 +128,9 @@ public class IsPalindrome {
 		System.out.println(isPalindrome4(-44));
 		System.out.println(isPalindrome4(454));
 		System.out.println(isPalindrome4(4149));
+		System.out.println("*******************");
+		System.out.println(isPalindrome5(-44));
+		System.out.println(isPalindrome5(454));
+		System.out.println(isPalindrome5(4149));
 	}
 }
