@@ -367,6 +367,66 @@ public class TreeTest {
 
 	}
 
+	public static String solution(String input) {
+		TreeNode root = null;
+		int i = 0;
+		int k = 0;
+		TreeNode pNode = null;
+		Stack< TreeNode> stack = new Stack<>();
+		char[] chs = input.toCharArray();
+		char ch = chs[i];
+		while( i < chs.length) {
+			if (ch == '(') {
+				stack.push(pNode);
+				k = 1;//下次添加左孩子
+			}
+			else if (ch == ',') {
+				k = 2;
+			}
+			else if (ch == ')') {
+				stack.pop();
+			}
+			pNode = new TreeNode(ch);
+			if (root == null) {
+				root = pNode;
+			}else {
+				if (k == 1) {
+					stack.peek().left = pNode;
+				}else if (k == 2) {
+					stack.peek().right = pNode;
+				}
+			}
+			i++;
+		}
+		return levelOrderTraverse(root);
+		
+	}
+	public static String levelOrderTraverse(TreeNode root) {
+		StringBuilder sb = new StringBuilder();
+		if (root == null) {
+			return "";
+		}
+		// 用LinkedList来实现一个双向队列，这里我们看成是一个单向的。
+
+		LinkedList<TreeNode> queue = new LinkedList<>();
+		queue.addLast(root);
+		while (!queue.isEmpty()) {
+			// 出队
+			TreeNode pNode = queue.removeFirst();
+			sb.append(pNode.val);
+			if (pNode.left != null) {
+				// 入队
+				queue.addLast(pNode.left);
+			}
+			if (pNode.right != null) {
+				// 入队
+				queue.addLast(pNode.right);
+			}
+		}
+		return sb.toString();
+
+	}
+	
 	public static void main(String[] args) {
 		TreeNode aNode = new TreeNode(1);
 		TreeNode bNode = new TreeNode(2);
